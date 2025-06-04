@@ -9,22 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/bapp")
 //@RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService service;
 
     public CustomerController(CustomerService service) {
         this.service = service;
-    }
-
-
-
-
-
-    @PatchMapping("/{custId}")
-    public Customer updateUsers(@PathVariable String custId, @RequestBody Customer customer) {
-        return service.patchUsers(custId, customer).orElse(null);
     }
 
     @GetMapping("/{custId}")
@@ -45,5 +36,10 @@ public class CustomerController {
     @PostMapping("/addBulk")
     public List<Customer> addUsers(@RequestBody List<Customer> users) {
         return service.addUsers(users);
+    }
+
+    @PatchMapping("/{custId}")
+    public Customer updateUsers(@PathVariable String custId, @RequestBody Customer customer) {
+        return service.patchUsers(custId, customer).orElse(null);
     }
 }

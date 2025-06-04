@@ -1,6 +1,8 @@
 package com.codeCrew.api.service.impl;
 
 import com.codeCrew.api.entity.Customer;
+import com.codeCrew.api.entity.CustomerFullServe;
+import com.codeCrew.api.repository.CustomerFsRepository;
 import com.codeCrew.api.repository.CustomerRepository;
 import com.codeCrew.api.service.CustomerService;
 import jakarta.transaction.Transactional;
@@ -15,9 +17,11 @@ import java.util.Optional;
 //@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository repository;
+    private final CustomerFsRepository repositoryFs;
 
-    public CustomerServiceImpl(CustomerRepository repository) {
+    public CustomerServiceImpl(CustomerRepository repository, CustomerFsRepository repositoryFs) {
         this.repository = repository;
+        this.repositoryFs = repositoryFs;
     }
 
     @Transactional
@@ -48,5 +52,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Optional<Customer> getUser(String custId) {
         return repository.findByCustId(custId);
+    }
+
+    @Override
+    public Optional<CustomerFullServe> getFsUser(String custId) {
+        return repositoryFs.findByCustId(custId);
+    }
+
+    @Override
+    public List<CustomerFullServe> getFsUsers() {
+        return repositoryFs.findAll();
     }
 }
