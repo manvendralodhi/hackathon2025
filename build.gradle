@@ -37,7 +37,15 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 //	implementation 'com.microsoft.azure:azure-functions-java-library:1.4.0'
+	implementation 'com.azure:azure-storage-blob:12.19.0'
+//	implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.25.0'
+//	implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.40.0'
 
+	// https://mvnrepository.com/artifact/com.azure/azure-core
+	implementation("com.azure:azure-core:1.55.3")
+	// https://mvnrepository.com/artifact/com.microsoft.cognitiveservices.speech/client-sdk
+//	implementation("com.microsoft.cognitiveservices.speech:client-sdk:1.44.0")
+	implementation group: 'com.microsoft.cognitiveservices.speech', name: 'client-sdk', version: "1.43.0", ext: "jar"
 }
 
 tasks.named('test') {
