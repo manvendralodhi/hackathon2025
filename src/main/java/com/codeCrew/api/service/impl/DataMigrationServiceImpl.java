@@ -46,15 +46,21 @@ public class DataMigrationServiceImpl {
         return customerFs;
     }
 
-    public CustomerFullServe saveOrUpdate(CustomerFullServe customer) {
-        Optional<CustomerFullServe> existingCustomer = repositoryFs.findByCustId(customer.getCustId());
-        if (existingCustomer.isPresent()) {
-            CustomerFullServe updatedCustomer = existingCustomer.get();
-            updatedCustomer.setPreferredDeviceFlag(customer.isPreferredDeviceFlag()); // Update fields
-            return repositoryFs.save(updatedCustomer);
-        } else {
-            return repositoryFs.save(customer); // Insert new record
+    @Transactional
+    public CustomerFullServe saveOrUpdate(CustomerFullServe customerFs) {
+        Optional<CustomerFullServe> existingCustomer = repositoryFs.findByCustId(customerFs.getCustId());
+        try {
+            if (existingCustomer.isPresent()) {
+                CustomerFullServe updatedCustomer = existingCustomer.get();
+                updatedCustomer.setPreferredDeviceFlag(customerFs.isPreferredDeviceFlag()); // Update fields
+                return repositoryFs.save(updatedCustomer);
+            } else {
+                return repositoryFs.save(customerFs); // Insert new record
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
+       return null;
     }
 
 }

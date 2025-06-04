@@ -31,7 +31,19 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional
     public Customer addUser(Customer user) {
-        return repository.save(user);
+        try {
+            if(user.getCustId() == null) {
+                user.setCustId(generateCustid() + "");
+            }
+            return repository.save(user);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    private long generateCustid() {
+        return  (long) (Math.random() * 9000000000L) + 1000000000L;
     }
 
     @Override

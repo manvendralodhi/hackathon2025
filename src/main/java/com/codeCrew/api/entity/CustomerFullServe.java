@@ -18,6 +18,7 @@ public class CustomerFullServe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String custId;
     private String firstName;
     private String lastName;
