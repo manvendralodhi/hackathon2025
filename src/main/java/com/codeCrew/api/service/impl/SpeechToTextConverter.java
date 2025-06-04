@@ -14,7 +14,7 @@ public class SpeechToTextConverter {
 //
     private static final String SPEECH_API_KEY =  "8v5BUEZuvDSNKkENjFyJMDKcE6hv9MJf3ugs5XdCfgWv6gkJEyN6JQQJ99BFACqBBLyXJ3w3AAAYACOGU0Ee";
     private static final String SPEECH_API_REGION = "southeastasia";
-    private static final String BLOB_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=bankinstablob;AccountKey=x9dYNIgvWT/nuoRLH6l3qexmDACk1L1FsGyh0fTjS8HAo6aPitvRJLaZQ++dr7NFBB8xnv90QAjJ+AStwwn4CQ==;EndpointSuffix=core.windows.net";
+    private static final String BLOB_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=<>;AccountKey=<>;EndpointSuffix=core.windows.net";
     private static final String CONTAINER_NAME = "call-recordings";
     private static final String BLOB_NAME = "sampledata_1.wav"; // Or the format of your audio file
     private static final String blobPath = "https://bankinstablob.blob.core.windows.net/call-recordings/Speech%20Off.wav";
