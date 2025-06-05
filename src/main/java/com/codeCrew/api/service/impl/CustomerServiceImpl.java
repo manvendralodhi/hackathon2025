@@ -73,7 +73,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Optional<Customer> patchUsers(String custId, Customer customer) {
 
         return repository.findByCustId(custId).map(cust -> {
-            BeanUtils.copyProperties(customer, cust);
+//            BeanUtils.copyProperties(customer, cust);
+            cust.setPreferredDeviceFlag(customer.isPreferredDeviceFlag());
+            cust.setDeviceId(customer.getDeviceId());
             return repository.save(cust);
         });
     }
