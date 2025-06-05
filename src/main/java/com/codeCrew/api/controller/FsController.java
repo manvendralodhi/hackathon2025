@@ -17,11 +17,13 @@ public class FsController {
         this.service = service;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/{custId}")
     public CustomerFullServe getUsers(@PathVariable String custId) {
         return service.getFsUser(custId).orElse(null);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/findAll")
     public List<CustomerFullServe> getUsers() {
         return service.getFsUsers();
