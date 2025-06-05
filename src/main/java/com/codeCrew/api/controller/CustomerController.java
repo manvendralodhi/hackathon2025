@@ -18,6 +18,11 @@ public class CustomerController {
         this.service = service;
     }
 
+    @GetMapping("/getToken")
+    public String getToken() {
+        return service.getToken();
+    }
+
     @GetMapping("/{custId}")
     public Customer getUsers(@PathVariable String custId) {
         return service.getUser(custId).orElse(null);

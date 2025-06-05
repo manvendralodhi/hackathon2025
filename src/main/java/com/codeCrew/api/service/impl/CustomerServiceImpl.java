@@ -75,4 +75,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerFullServe> getFsUsers() {
         return repositoryFs.findAll();
     }
+
+    @Override
+    public String getToken() {
+        return "test";
+    }
 }

@@ -21,4 +21,6 @@ public interface CustomerService {
     Optional<CustomerFullServe> getFsUser(String custId);
 
     List<CustomerFullServe> getFsUsers();
+
+    String getToken();
 }
