@@ -29,9 +29,12 @@ public class CustomerFullServe {
     private String address;
     private String relationshipType;
     private String userIdentity;
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String userAccessToken;
     private String deviceId;
     private boolean preferredDeviceFlag;
+    private String acsUserId;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -177,5 +180,13 @@ public class CustomerFullServe {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public String getAcsUserId() {
+        return acsUserId;
+    }
+
+    public void setAcsUserId(String acsUserId) {
+        this.acsUserId = acsUserId;
     }
 }

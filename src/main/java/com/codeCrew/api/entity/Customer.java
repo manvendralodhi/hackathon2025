@@ -31,9 +31,13 @@ public class Customer {
     private String address;
     private String relationshipType;
     private String userIdentity;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String userAccessToken;
     private String deviceId;
     private boolean preferredDeviceFlag;
+    private String acsUserId;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -169,5 +173,13 @@ public class Customer {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getAcsUserId() {
+        return acsUserId;
+    }
+
+    public void setAcsUserId(String acsUserId) {
+        this.acsUserId = acsUserId;
     }
 }

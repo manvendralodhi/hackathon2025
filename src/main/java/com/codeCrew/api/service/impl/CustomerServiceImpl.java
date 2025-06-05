@@ -1,5 +1,9 @@
 package com.codeCrew.api.service.impl;
 
+import com.azure.communication.identity.CommunicationIdentityClient;
+import com.azure.communication.identity.CommunicationIdentityClientBuilder;
+import com.azure.communication.identity.models.CommunicationTokenScope;
+import com.azure.communication.identity.models.CommunicationUserIdentifierAndToken;
 import com.codeCrew.api.entity.Customer;
 import com.codeCrew.api.entity.CustomerFullServe;
 import com.codeCrew.api.repository.CustomerFsRepository;
@@ -8,6 +12,7 @@ import com.codeCrew.api.service.CustomerService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +23,17 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository repository;
     private final CustomerFsRepository repositoryFs;
+    private final CommunicationIdentityClient identityClient;
 
-    public CustomerServiceImpl(CustomerRepository repository, CustomerFsRepository repositoryFs) {
+    public CustomerServiceImpl(CustomerRepository repository, CustomerFsRepository repositoryFs,
+                               @Value("${azure.communication.connection-string}") String connectionString) {
         this.repository = repository;
         this.repositoryFs = repositoryFs;
+        this.identityClient = new CommunicationIdentityClientBuilder()
+
+                .connectionString(connectionString)
+
+                .buildClient();
     }
 
     @Transactional
@@ -35,6 +47,11 @@ public class CustomerServiceImpl implements CustomerService {
             if(user.getCustId() == null) {
                 user.setCustId(generateCustid() + "");
             }
+            CommunicationUserIdentifierAndToken userWithToken =
+                    identityClient.createUserAndToken(List.of(CommunicationTokenScope.VOIP));
+            user.setAcsUserId(userWithToken.getUser().getId());
+            user.setUserAccessToken(userWithToken.getUserToken().getToken());
+
             return repository.save(user);
         } catch (Exception e) {
             System.out.println(e);
